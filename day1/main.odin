@@ -7,45 +7,31 @@ import "core:strings"
 import "core:strconv"
 import "core:time"
 
+words := [?]string{ "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" }
+digits := [?]string{ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }
+
 part1 :: proc(data: string) -> int {
 	data := data
 	sum := 0
 
-	digits := map[string]string{
-		"one"   = "1",
-		"two"   = "2",
-		"three" = "3",
-		"four"  = "4",
-		"five"  = "5",
-		"six"   = "6",
-		"seven" = "7",
-		"eight" = "8",
-		"nine"  = "9",
-	}
-
 	for line in strings.split_iterator(&data, "\n") {
-		first, last: string
-		first_i, last_i := 1000, -1
+		first, last: rune
 
-		for _, digit in digits {
-			i := strings.index(line, digit)
-			li := strings.last_index(line, digit)
-		
-			min_i := min(i, first_i) if i>=0 else first_i
-			max_i := max(li, last_i) if li>=0 else last_i
-
-			if min_i < first_i {
-				first = digit
-				first_i = min_i
+		for c, i in line {
+			if c >= '0' && c <= '9' {
+				first = c
+				break
 			}
-			if max_i > last_i {
-				last = digit
-				last_i = max_i
+		}
+		#reverse for c, i in line {
+			if c >= '0' && c <= '9' {
+				last = c
+				break
 			}
 		}
 
-		first_i, _ = strconv.parse_int(first)
-		last_i, _ = strconv.parse_int(last) 
+		first_i := int(first - '0')
+		last_i := int(last - '0') 
 		sum += first_i * 10 + last_i
 	}
 
@@ -56,23 +42,14 @@ part2 :: proc(data: string) -> int {
 	data := data
 	sum := 0
 
-	digits := map[string]string{
-		"one"   = "1",
-		"two"   = "2",
-		"three" = "3",
-		"four"  = "4",
-		"five"  = "5",
-		"six"   = "6",
-		"seven" = "7",
-		"eight" = "8",
-		"nine"  = "9",
-	}
-
 	for line in strings.split_iterator(&data, "\n") {
 		first, last: string
 		first_i, last_i := 1000, -1
 
-		for str, digit in digits {
+		for index in 1..<10 {
+			digit := digits[index]
+			str := words[index]
+
 			i := strings.index(line, digit)
 			li := strings.last_index(line, digit)
 			str_i := strings.index(line, str)
