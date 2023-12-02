@@ -72,8 +72,8 @@ part2 :: proc(data: string) -> int {
 			}
 		}
 
-		first_i, _ = strconv.parse_int(first)
-		last_i, _ = strconv.parse_int(last) 
+		first_i = int(first[0] - '0')
+		last_i = int(last[0] - '0') 
 		sum += first_i * 10 + last_i
 	}
 	
