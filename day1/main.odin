@@ -2,9 +2,7 @@ package day1
 
 import "core:fmt"
 import "core:mem"
-import "core:os"
 import "core:strings"
-import "core:strconv"
 import "core:time"
 
 words := [?]string{ "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" }
@@ -17,13 +15,13 @@ part1 :: proc(data: string) -> int {
 	for line in strings.split_iterator(&data, "\n") {
 		first, last: rune
 
-		for c, i in line {
+		for c in line {
 			if c >= '0' && c <= '9' {
 				first = c
 				break
 			}
 		}
-		#reverse for c, i in line {
+		#reverse for c in line {
 			if c >= '0' && c <= '9' {
 				last = c
 				break

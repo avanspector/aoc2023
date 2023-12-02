@@ -2,7 +2,6 @@ package day2
 
 import "core:fmt"
 import "core:mem"
-import "core:os"
 import "core:strings"
 import "core:strconv"
 import "core:time"
@@ -13,11 +12,13 @@ part1 :: proc(data: string) -> int {
 	game := 1
 
 	for line in strings.split_iterator(&data, "\n") {
-		line := line[8:]
+		line := line
+		line = line[8:]
 		max_r, max_g, max_b: int
 
 		for set in strings.split_iterator(&line, "; ") {
-			set := strings.trim_prefix(set, ": ")
+			set := set
+			set = strings.trim_prefix(set, ": ")
 			set = strings.trim_prefix(set, " ")
 			
 			for part in strings.split_iterator(&set, ", ") {
@@ -65,11 +66,13 @@ part2 :: proc(data: string) -> int {
 	sum := 0
 
 	for line in strings.split_iterator(&data, "\n") {
-		line := line[8:]
+		line := line
+		line = line[8:]
 		max_r, max_g, max_b: int
 
 		for set in strings.split_iterator(&line, "; ") {
-			set := strings.trim_prefix(set, ": ")
+			set := set
+			set = strings.trim_prefix(set, ": ")
 			set = strings.trim_prefix(set, " ")
 			
 			for part in strings.split_iterator(&set, ", ") {
