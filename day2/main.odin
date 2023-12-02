@@ -13,42 +13,33 @@ part1 :: proc(data: string) -> int {
 
 	for line in strings.split_iterator(&data, "\n") {
 		line := line
-		line = line[8:]
+		line = strings.trim_prefix(line[8:], ": ")
+		line = strings.trim_prefix(line, " ")
 		max_r, max_g, max_b: int
+		count: Maybe(int)
 
-		for set in strings.split_iterator(&line, "; ") {
-			set := set
-			set = strings.trim_prefix(set, ": ")
-			set = strings.trim_prefix(set, " ")
-			
-			for part in strings.split_iterator(&set, ", ") {
-				part := part
-				count: Maybe(int)
-
-				for word in strings.split_iterator(&part, " ") {
-					if count == nil {
-						count, _ = strconv.parse_int(word)
-						continue
-					}
-					switch word[0] {
-					case 'r':
-						if count.? > max_r {
-							max_r = count.?
-						}
-					case 'g':
-						if count.? > max_g {
-							max_g = count.?
-						}
-					case 'b':
-						if count.? > max_b {
-							max_b = count.?
-						}
-					case:
-						panic("Wrong word of color!")
-					}
-					count = nil
-				}
+		for word in strings.split_iterator(&line, " ") {
+			if count == nil {
+				count, _ = strconv.parse_int(word)
+				continue
 			}
+			switch word[0] {
+			case 'r':
+				if count.? > max_r {
+					max_r = count.?
+				}
+			case 'g':
+				if count.? > max_g {
+					max_g = count.?
+				}
+			case 'b':
+				if count.? > max_b {
+					max_b = count.?
+				}
+			case:
+				panic("Wrong word of color!")
+			}
+			count = nil
 		}
 
 		// If the bag contained only 12 red cubes, 13 green cubes, and 14 blue cubes?
@@ -67,42 +58,33 @@ part2 :: proc(data: string) -> int {
 
 	for line in strings.split_iterator(&data, "\n") {
 		line := line
-		line = line[8:]
+		line = strings.trim_prefix(line[8:], ": ")
+		line = strings.trim_prefix(line, " ")
 		max_r, max_g, max_b: int
+		count: Maybe(int)
 
-		for set in strings.split_iterator(&line, "; ") {
-			set := set
-			set = strings.trim_prefix(set, ": ")
-			set = strings.trim_prefix(set, " ")
-			
-			for part in strings.split_iterator(&set, ", ") {
-				part := part
-				count: Maybe(int)
-
-				for word in strings.split_iterator(&part, " ") {
-					if count == nil {
-						count, _ = strconv.parse_int(word)
-						continue
-					}
-					switch word[0] {
-					case 'r':
-						if count.? > max_r {
-							max_r = count.?
-						}
-					case 'g':
-						if count.? > max_g {
-							max_g = count.?
-						}
-					case 'b':
-						if count.? > max_b {
-							max_b = count.?
-						}
-					case:
-						panic("Wrong word of color!")
-					}
-					count = nil
-				}
+		for word in strings.split_iterator(&line, " ") {
+			if count == nil {
+				count, _ = strconv.parse_int(word)
+				continue
 			}
+			switch word[0] {
+			case 'r':
+				if count.? > max_r {
+					max_r = count.?
+				}
+			case 'g':
+				if count.? > max_g {
+					max_g = count.?
+				}
+			case 'b':
+				if count.? > max_b {
+					max_b = count.?
+				}
+			case:
+				panic("Wrong word of color!")
+			}
+			count = nil
 		}
 
 		sum += max_r * max_g * max_b
